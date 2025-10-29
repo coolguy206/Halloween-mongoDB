@@ -1,16 +1,2 @@
-
-/**/*.pdf
-/**/build
 .env
-api.js
-log/
 node_modules/**
-**/*.DS_Store
-bower_components
-dropbox.zip
-rest/**
-movie-rest.js
-schema.graphql
-handoff/**
-Site/**
-.vscode
