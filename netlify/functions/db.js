@@ -2,6 +2,7 @@
 import { MongoClient } from "mongodb";
 
 let collection;
+console.log("from db.js");
 
 export async function connectToDb(uri, dbName, collectionName) {
   const client = new MongoClient(uri);
