@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import { connectToDb } from './db.js';
+import { connectToDb } from './db-original.js';
 
 config();
 // console.log(process.env.MONGODB_URI);
