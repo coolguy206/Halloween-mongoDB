@@ -30,17 +30,12 @@ const connectDb = async () => {
     const dbName = `halloweenDB_${year}`;
     const collectionName = "families";
     collection = await connectToDb(uri, dbName, collectionName);
+    console.log("Database connected and collection set");
+    console.log(collection);
   }
 };
 
-app.get("/test", async (req, res) => {
-  console.log("GET /test request received");
-  try {
-    res.json({message: "API is working!"});
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch data" });
-  }
-});
+app.get("/hello", (req, res) => res.send("hello"));
 
 app.get("/", async (req, res) => {
   console.log("GET / request received");
