@@ -33,6 +33,15 @@ const connectDb = async () => {
   }
 };
 
+app.get("/test", async (req, res) => {
+  console.log("GET /test request received");
+  try {
+    res.json({message: "API is working!"});
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch data" });
+  }
+});
+
 app.get("/", async (req, res) => {
   console.log("GET / request received");
   try {
