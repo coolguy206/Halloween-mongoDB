@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import express from "express";
 import cors from "cors";
-import { connectToDb } from "db.js";
+import { connectToDb } from "./db.js";
 import serverless from "serverless-http";
 
 config();
