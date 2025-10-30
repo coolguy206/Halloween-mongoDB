@@ -21,7 +21,7 @@ const uri = process.env.MONGODB_URI;
 
   const collection = await connectToDb(uri, dbName, collectionName);
 
-  app.get("/index", async (req, res) => {
+  app.get("/", async (req, res) => {
     try {
       const families = await collection.find({}).toArray();
       res.json(families);
