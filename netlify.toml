@@ -1,6 +1,6 @@
 [build]
     publish = "dist"
-    functions = "netlify/function"
+    functions = "netlify/functions"
 [functions]
   external_node_modules = ["express", "dotenv", "cors", "mongodb"]
   node_bundler = "esbuild"
