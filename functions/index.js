@@ -21,7 +21,7 @@ const uri = process.env.MONGODB_URI;
 
   const collection = await connectToDb(uri, dbName, collectionName);
 
-  app.get("/.netlify/functions/", async (req, res) => {
+  app.get("/", async (req, res) => {
     try {
       const families = await collection.find({}).toArray();
       res.json(families);
@@ -30,7 +30,7 @@ const uri = process.env.MONGODB_URI;
     }
   });
 
-  app.post("/.netlify/functions/submit", async (req, res) => {
+  app.post("/submit", async (req, res) => {
     console.log("Received data:", req.body);
     // res.json({ message: 'Data received!', data: req.body });
 
