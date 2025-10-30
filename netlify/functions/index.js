@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import express from "express";
 import cors from "cors";
-import { connectToDb } from "../db.js";
+import { connectToDb } from "../../db.js";
 import serverless from "serverless-http";
 
 config();
@@ -21,7 +21,7 @@ const uri = process.env.MONGODB_URI;
 
   const collection = await connectToDb(uri, dbName, collectionName);
 
-  app.get("/netlify/functions", async (req, res) => {
+  app.get("/netlify/functions/index", async (req, res) => {
     try {
       const families = await collection.find({}).toArray();
       res.json(families);
