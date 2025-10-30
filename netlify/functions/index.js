@@ -16,36 +16,49 @@ const uri = process.env.MONGODB_URI;
 
 console.log("from index.js");
 
-(async () => {
-  let year = new Date().getFullYear();
-  const dbName = `halloweenDB_${year}`;
-  const collectionName = "families";
 
-  const collection = await connectToDb(uri, dbName, collectionName);
+// let year = new Date().getFullYear();
+// const dbName = `halloweenDB_${year}`;
+// const collectionName = "families";
 
-  app.get("/", async (req, res) => {
-    console.log("GET / request received");
-    try {
-      const families = await collection.find({}).toArray();
-      res.json(families);
-    } catch (err) {
-      res.status(500).json({ error: "Failed to fetch data" });
-    }
-  });
+// const collection = await connectToDb(uri, dbName, collectionName);
 
-  app.post("/submit", async (req, res) => {
-    console.log("Received data:", req.body);
-    // res.json({ message: 'Data received!', data: req.body });
+let collection;
+const connectDb = async () => {
+  if (!collection) {
+    const year = new Date().getFullYear();
+    const dbName = `halloweenDB_${year}`;
+    const collectionName = "families";
+    collection = await connectToDb(uri, dbName, collectionName);
+  }
+};
 
-    const familyData = req.body;
-    try {
-      await collection.insertOne(familyData); // insert data directly
-      res.json({ message: "Family added!", data: familyData });
-    } catch (err) {
-      res.status(500).json({ error: "Failed to insert data" });
-    }
-  });
-})();
+app.get("/", async (req, res) => {
+  console.log("GET / request received");
+  try {
+    await connectDb();
+    const families = await collection.find({}).toArray();
+    // const families = await collection.find({}).toArray();
+    res.json(families);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch data" });
+  }
+});
+
+app.post("/submit", async (req, res) => {
+  console.log("Received data:", req.body);
+  // res.json({ message: 'Data received!', data: req.body });
+
+  const familyData = req.body;
+  try {
+    await connectDb();
+    await collection.insertOne(familyData); // insert data directly
+    res.json({ message: "Family added!", data: familyData });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to insert data" });
+  }
+});
+
 
 // Wrap the Express app with serverless-http
 const handler = serverless(app);
