@@ -14,6 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 
 const uri = process.env.MONGODB_URI;
 
+console.log("from index.js");
+
 (async () => {
   let year = new Date().getFullYear();
   const dbName = `halloweenDB_${year}`;
@@ -22,6 +24,7 @@ const uri = process.env.MONGODB_URI;
   const collection = await connectToDb(uri, dbName, collectionName);
 
   app.get("/", async (req, res) => {
+    console.log("GET / request received");
     try {
       const families = await collection.find({}).toArray();
       res.json(families);
